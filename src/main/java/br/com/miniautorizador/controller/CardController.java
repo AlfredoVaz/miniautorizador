@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/cards")
 public class CardController {
@@ -16,16 +18,9 @@ public class CardController {
     private CardService cardService;
 
     @PostMapping
-    public ResponseEntity<CardDTO> create(@RequestBody CardDTO cardDTO) {
-        try {
-            Card card = cardService.create(cardDTO);
-            CardDTO response = new CardDTO(card.getCardNumber(), card.getPassword());
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-            if ("CARD_ALREADY_EXISTS".equals(e.getMessage())) {
-                return new ResponseEntity<>(cardDTO, HttpStatus.UNPROCESSABLE_ENTITY);
-            }
-            throw e;
-        }
+    public ResponseEntity<CardDTO> create(@Valid @RequestBody CardDTO cardDTO) {
+        Card card = cardService.create(cardDTO);
+        CardDTO response = new CardDTO(card.getCardNumber(), card.getPassword());
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
