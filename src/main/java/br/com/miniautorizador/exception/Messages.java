@@ -10,6 +10,7 @@ public class Messages {
 
     // ## Error messages
     public static final String CARD_ALREADY_EXISTS = "Card already exists";
+    public static final String CARD_NOT_FOUND = "Card not found";
 
     
 }

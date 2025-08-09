@@ -7,11 +7,11 @@ import br.com.miniautorizador.exception.Messages;
 public class CardDTO {
     
     @NotBlank(message = Messages.CARD_NUMBER_REQUIRED)
-    @Pattern(regexp = "^[0-9]{16}$", message = Messages.CARD_NUMBER_INVALID)
+    @Pattern(regexp = "^$|^[0-9]{16}$", message = Messages.CARD_NUMBER_INVALID)
     private String cardNumber;
-
+    
     @NotBlank(message = Messages.PASSWORD_REQUIRED)
-    @Pattern(regexp = "^[0-9]{4}$", message = Messages.PASSWORD_INVALID)
+    @Pattern(regexp = "^$|^[0-9]{4}$", message = Messages.PASSWORD_INVALID)
     private String password;
 
     public CardDTO() {}

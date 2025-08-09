@@ -27,12 +27,19 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public Card create(CardDTO card) {
-        Optional<Card> possibleCard = repository.findById(card.getCardNumber());
+        Optional<Card> possibleCard = repository.findByCardNumber(card.getCardNumber());
         if (possibleCard.isPresent()) {
             throw new RuntimeException(Messages.CARD_ALREADY_EXISTS);
         }
         Card newCard = buildCard(card);
         return repository.save(newCard);
+    }
+
+    @Override
+    public BigDecimal getBalanceByCardNumber(String cardNumber) {
+        return repository.findByCardNumber(cardNumber)
+                .map(Card::getBalance)
+                .orElseThrow(() -> new RuntimeException(Messages.CARD_NOT_FOUND));
     }
 
     private Card buildCard(CardDTO card) {

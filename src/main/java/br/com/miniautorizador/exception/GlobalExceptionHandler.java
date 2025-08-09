@@ -32,6 +32,8 @@ public class GlobalExceptionHandler {
         HttpStatus status;
         if (Messages.CARD_ALREADY_EXISTS.equals(ex.getMessage())) {
             status = HttpStatus.UNPROCESSABLE_ENTITY;
+        } else if (Messages.CARD_NOT_FOUND.equals(ex.getMessage())) {
+            status = HttpStatus.NOT_FOUND;
         } else {
             status = HttpStatus.BAD_REQUEST;
         }

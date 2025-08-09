@@ -7,7 +7,12 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "CARD")
 public class Card {
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
+
     @Column(name = "CARD_NUMBER", unique = true, nullable = false, length = 20)
     private String cardNumber;
 
@@ -24,6 +29,9 @@ public class Card {
     private LocalDate expirationDate;
 
     public Card() {}
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getCardNumber() { return cardNumber; }
     public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }

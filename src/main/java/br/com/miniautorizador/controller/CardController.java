@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import java.math.BigDecimal;
 
 @RestController
-@RequestMapping("/cards")
+@RequestMapping("/cartoes")
 public class CardController {
 
     @Autowired
@@ -22,5 +23,11 @@ public class CardController {
         Card card = cardService.create(cardDTO);
         CardDTO response = new CardDTO(card.getCardNumber(), card.getPassword());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{numeroCartao}")
+    public ResponseEntity<BigDecimal> getBalance(@PathVariable String numeroCartao) {
+        BigDecimal balance = cardService.getBalanceByCardNumber(numeroCartao);
+        return ResponseEntity.ok(balance);
     }
 }
